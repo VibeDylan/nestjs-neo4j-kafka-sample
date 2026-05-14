@@ -1,7 +1,7 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { ProductRepository } from '../../neo4j/repositories/product.repository';
-import { TOPICS } from '../../shared/constants/topics.constants';
 import { KafkaService } from '../kakfa.service';
+import { TOPICS } from 'src/shared/constants/topics.constants';
 
 @Injectable()
 export class ProductConsumer implements OnModuleInit {

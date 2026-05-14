@@ -2,9 +2,9 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 import { ProductRepository } from '../neo4j/repositories/product.repository';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { TOPICS } from '../shared/constants/topics.constants';
 import { v4 as uuidv4 } from 'uuid';
 import { KafkaService } from 'src/kafka/kakfa.service';
+import { TOPICS } from 'src/shared/constants/topics.constants';
 @Injectable()
 export class ProductsService {
   constructor(
@@ -26,7 +26,7 @@ export class ProductsService {
         createProductDto.categorieId,
       );
     }
-
+    
     await this.kafkaService.publish(TOPICS.PRODUCT_CREATED, {
       type: 'PRODUCT_CREATED',
       timestamp: Date.now(),
