@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import neo4j from 'neo4j-driver';
 import { Neo4jService } from '../neo4j.service';
 
 @Injectable()
@@ -50,7 +51,7 @@ export class ProductRepository {
       LIMIT $limit
     `;
 
-    const result = await this.neo4jService.read(cypher, { limit });
+    const result = await this.neo4jService.read(cypher, { limit: neo4j.int(limit) });
 
     return result.map((record) => ({
       ...record.p.properties,
@@ -107,7 +108,7 @@ export class ProductRepository {
       LIMIT $limit
     `;
 
-    const result = await this.neo4jService.read(cypher, { productId, limit });
+    const result = await this.neo4jService.read(cypher, { productId, limit: neo4j.int(limit) });
     return result.map((r) => r.similaire.properties);
   }
 
