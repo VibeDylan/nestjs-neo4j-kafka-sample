@@ -1,17 +1,15 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { ProductRepository } from '../../neo4j/repositories/product.repository';
 import { KafkaService } from '../kakfa.service';
 import { TOPICS } from 'src/shared/constants/topics.constants';
 
 @Injectable()
-export class ProductConsumer implements OnModuleInit {
+export class ProductConsumer {
   constructor(
     private kafkaService: KafkaService,
     private productRepository: ProductRepository,
-  ) {}
-
-  async onModuleInit() {
-    await this.kafkaService.subscribe(
+  ) {
+    this.kafkaService.registerSubscription(
       TOPICS.PRODUCT_UPDATED,
       this.handleProductUpdated.bind(this),
     );
