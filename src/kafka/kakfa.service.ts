@@ -64,7 +64,6 @@ export class KafkaService implements OnModuleInit, OnModuleDestroy {
           await handler(payload);
         } catch (error) {
           console.error('❌ Erreur traitement message:', error);
-          // TODO: Dead Letter Queue
         }
       },
     });
